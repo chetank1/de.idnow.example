@@ -22,30 +22,74 @@ public class RestControllerTest {
 
 	JsonNode identifications;
 
-	@Test
-	public void getIdentifications() {
-		running(testServer(3333, fakeApplication(inMemoryDatabase())), new Runnable() {
-			@Override
-			public void run() {
-				assertEquals(WS.url("http://localhost:3333/api/v1/identifications").get().get(10000).getStatus(), OK);
-			}
-		});
+//	@Test
+//	public void getIdentifications() {
+//		running(testServer(3333, fakeApplication(inMemoryDatabase())), new Runnable() {
+//			@Override
+//			public void run() {
+//				assertEquals(WS.url("http://localhost:3333/api/v1/identifications").get().get(10000).getStatus(), OK);
+//			}
+//		});
+//
+//	}
 
-	}
-
+//	@Test
+//	public void postIdentification() {
+//		running(testServer(3333, fakeApplication(inMemoryDatabase())), new Runnable() {
+//			@Override
+//			public void run() {
+//				JsonNode company = Json.parse("{\"id\": 1, \"name\": \"Test Bank\", \"sla_time\": 60, \"sla_percentage\": 0.9, \"current_sla_percentage\": 0.95}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/addCompany").post(company).get(10000).getStatus(), OK);
+//				
+//				JsonNode identification = Json.parse("{\"id\": 1, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 10, \"companyid\": 1}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification).get(10000).getStatus(), OK);
+//				
+//			}
+//		});
+//
+//	}
+	
 	@Test
-	public void postIdentification() {
+	public void example1() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())), new Runnable() {
 			@Override
 			public void run() {
 				JsonNode company = Json.parse("{\"id\": 1, \"name\": \"Test Bank\", \"sla_time\": 60, \"sla_percentage\": 0.9, \"current_sla_percentage\": 0.95}");
 				assertEquals(WS.url("http://localhost:3333/api/v1/addCompany").post(company).get(10000).getStatus(), OK);
 				
-				JsonNode identification = Json.parse("{\"id\": 1, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 10, \"companyid\": 1}");
-				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification).get(10000).getStatus(), OK);
+				JsonNode identification1 = Json.parse("{\"id\": 1, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 30, \"companyid\": 1}");
+				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification1).get(10000).getStatus(), OK);
+				
+				JsonNode identification2 = Json.parse("{\"id\": 2, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 45, \"companyid\": 1}");
+				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification2).get(10000).getStatus(), OK);
+				
+				System.out.println("Output: " + WS.url("http://localhost:3333/api/v1/identifications").get().get(10000).asJson());
+
 			}
 		});
-
 	}
+	
+//	@Test
+//	public void example2() {
+//		running(testServer(3333, fakeApplication(inMemoryDatabase())), new Runnable() {
+//			@Override
+//			public void run() {
+//				JsonNode company1 = Json.parse("{\"id\": 1, \"name\": \"Test Bank\", \"sla_time\": 60, \"sla_percentage\": 0.9, \"current_sla_percentage\": 0.95}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/addCompany").post(company1).get(10000).getStatus(), OK);
+//				
+//				JsonNode company2 = Json.parse("{\"id\": 2, \"name\": \"Test Bank\", \"sla_time\": 60, \"sla_percentage\": 0.9, \"current_sla_percentage\": 0.90}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/addCompany").post(company2).get(10000).getStatus(), OK);
+//				
+//				JsonNode identification1 = Json.parse("{\"id\": 1, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 30, \"companyid\": 1}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification1).get(10000).getStatus(), OK);
+//				
+//				JsonNode identification2 = Json.parse("{\"id\": 2, \"name\": \"Peter Huber\", \"time\": 1435667215, \"waiting_time\": 30, \"companyid\": 1}");
+//				assertEquals(WS.url("http://localhost:3333/api/v1/startIdentification").post(identification2).get(10000).getStatus(), OK);
+//				
+//				System.out.println("Output: " + WS.url("http://localhost:3333/api/v1/identifications").get().get(10000).asJson());
+//
+//			}
+//		});
+//	}
 
 }
